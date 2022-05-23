@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menuItemStartScreen"
+        android:title="@string/menuItemStartScreenTitle"
+        />
+
+    <item
+        android:id="@+id/menuItemAppInformation"
+        android:title="@string/menuItemAppInformation"
+        />
+
+</menu>

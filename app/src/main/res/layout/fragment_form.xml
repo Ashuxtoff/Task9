@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.FormFragment">
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/formTextInputLayoutsWithEditTextFieldsParameters"
+        android:id="@+id/titleInputLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:helperText="Required*"
+        app:helperTextTextColor="@color/red">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/titleInput"
+            android:hint="@string/hintTitle"
+            style="@style/formFieldsBasicParameters" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/formTextInputLayoutsWithEditTextFieldsParameters"
+        android:id="@+id/descriptionInputLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/titleInputLayout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/descriptionInput"
+            android:hint="@string/hintDescription"
+            android:minHeight="80dp"
+            android:gravity="start"
+            style="@style/formFieldsBasicParameters"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/formTextInputLayoutsWithAutocompleteTextFieldsParameters"
+        android:id="@+id/priorityInputLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/descriptionInputLayout"
+        app:helperText="Required*"
+        app:helperTextTextColor="@color/red">
+
+        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+            android:id="@+id/priorityInput"
+            android:hint="@string/hintPriority"
+            style="@style/formFieldsBasicParameters"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <RadioGroup
+        android:id="@+id/typeInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/priorityInputLayout">
+
+        <RadioButton
+            android:id="@+id/usefulTypeRadiobutton"
+            android:text="@string/usefulRadiobuttonName"
+            android:textSize="16sp"
+            style="@style/formFieldsBasicParameters"/>
+
+
+        <RadioButton
+            android:id="@+id/badTypeRadiobutton"
+            android:text="@string/badRadiobuttonName"
+            android:textSize="16sp"
+            style="@style/formFieldsBasicParameters"/>
+
+    </RadioGroup>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/formTextInputLayoutsWithEditTextFieldsParameters"
+        android:id="@+id/countOfEventsInputLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/typeInputLayout"
+        app:helperText="Required*"
+        app:helperTextTextColor="@color/red">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/countOfEventsInput"
+            android:inputType="number"
+            style="@style/formFieldsBasicParameters"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/formTextInputLayoutsWithAutocompleteTextFieldsParameters"
+        android:id="@+id/timeIntervalInputLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/countOfEventsInputLayout"
+        app:helperText="Required*"
+        app:helperTextTextColor="@color/red">
+
+        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+            android:id="@+id/timeIntervalInput"
+            android:hint="@string/hintTypeOfTimeInterval"
+            style="@style/formFieldsBasicParameters"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:text="@string/addButtonText"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/timeIntervalInputLayout"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

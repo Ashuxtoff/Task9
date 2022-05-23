@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">data</string>
+
+    <string name="usefulHabitKey">Useful</string>
+    <string name="badHabitKey">Bad</string>
+
+    <string name="hourTimeIntervalKey">hour</string>
+    <string name="dayTimeIntervalKey">day</string>
+    <string name="weekTimeIntervalKey">week</string>
+    <string name="monthTimeIntervalKey">month</string>
+</resources>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/habits_list_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
+    android:layout_marginTop="16dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:orientation="vertical">
+        <TextView
+            android:text="@string/title"
+            style="@style/attributeName">
+        </TextView>
+        <TextView
+            android:id="@+id/habitTitle"
+            style="@style/attributeValue">
+        </TextView>
+        <TextView
+            android:text="@string/description"
+            style="@style/attributeName">
+        </TextView>
+        <TextView
+            android:id="@+id/habitDescription"
+            style="@style/attributeValue">
+        </TextView>
+        <TextView
+            android:text="@string/priority"
+            style="@style/attributeName">
+        </TextView>
+        <TextView
+            android:id="@+id/habitPriority"
+            style="@style/attributeValue">
+        </TextView>
+        <TextView
+            android:text="@string/type"
+            style="@style/attributeName">
+        </TextView>
+        <TextView
+            android:id="@+id/habitType"
+            style="@style/attributeValue">
+        </TextView>
+        <TextView
+            android:text="@string/periodicity"
+            style="@style/attributeName">
+        </TextView>
+        <TextView
+            android:id="@+id/habitPeriodicity"
+            android:layout_marginBottom="16dp"
+            style="@style/attributeValue">
+        </TextView>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
+

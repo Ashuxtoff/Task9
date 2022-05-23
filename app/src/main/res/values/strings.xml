@@ -1,0 +1,79 @@
+<resources>
+    <string name="appName">Task3</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="priority">Priority</string>
+    <string name="type">Type</string>
+    <string name="periodicity">Periodicity</string>
+
+
+    <string name="periodicityValueString"> %d per %s </string>
+
+
+    <string name="hintTitle">Name your habit</string>
+    <string name="hintDescription">Describe your habit</string>
+    <string name="hintPriority">Set priority of your habit</string>
+    <string name="hintEventsCountUseful">How many times do you want to do it?</string>
+    <string name="hintEventsCountBad">What is the limit of this for you?</string>
+    <string name="hintTypeOfTimeInterval">Select time interval</string>
+
+    <string name="usefulRadiobuttonName">Useful</string>
+    <string name="badRadiobuttonName">Bad</string>
+
+    <string name="addButtonText">Add habit</string>
+    <string name="editButtonText">Edit habit</string>
+
+    <string name="usefulHabitKey">Useful</string>
+    <string name="badHabitKey">Bad</string>
+
+    <string name="hourTimeIntervalKey">hour</string>
+    <string name="dayTimeIntervalKey">day</string>
+    <string name="weekTimeIntervalKey">week</string>
+    <string name="monthTimeIntervalKey">month</string>
+
+    <string name="emptyRequiredFieldsToast">Please, fill all required fields</string>
+
+    <string name="errorText">ERROR TEXT FROM RESOURCES</string>
+
+    <string name="menuItemStartScreenTitle">Home</string>
+    <string name="menuItemAppInformation">About app</string>
+
+    <string name="openDrawer">Navigation drawer opened</string>
+    <string name="closeDrawer">Navigation drawer closed</string>
+
+    <string name="appInformationAboutAppTitle">About App</string>
+    <string name="appInformationAboutAppValue">This app lets you to manage and monitor your habits</string>
+    <string name="appInformationVersionTitle">Version</string>
+    <string name="appInformationVersionValue">1.0.0-alpha01</string>
+
+    <string name="habitsListToolbarTitle">Habits</string>
+    <string name="addHabitToolbarTitle">Habit adding</string>
+    <string name="editHabitToolbarTitle">Habit editing</string>
+    <string name="aboutAppToolbarTitle">Information</string>
+
+    <string name="bottomSheetTitle">Filtering and sorting</string>
+    <string name="sortByPriority">Sort by priority</string>
+    <string name="searchEditTextHint">Search</string>
+
+    <string-array name="timeIntervalTypes">
+        <item>hour</item>
+        <item>day</item>
+        <item>week</item>
+        <item>month</item>
+    </string-array>
+
+    <string-array name="priorities">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+<!--        <item>4</item>-->
+<!--        <item>5</item>-->
+<!--        <item>6</item>-->
+<!--        <item>7</item>-->
+<!--        <item>8</item>-->
+<!--        <item>9</item>-->
+<!--        <item>10</item>-->
+    </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
