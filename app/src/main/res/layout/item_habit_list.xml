@@ -54,6 +54,15 @@
             android:layout_marginBottom="16dp"
             style="@style/attributeValue">
         </TextView>
+
+        <Button
+            android:id="@+id/doHabitButton"
+            android:text="@string/doHabitButtonText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            />
     </LinearLayout>
 </androidx.cardview.widget.CardView>
 

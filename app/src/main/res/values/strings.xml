@@ -55,6 +55,13 @@
     <string name="sortByPriority">Sort by priority</string>
     <string name="searchEditTextHint">Search</string>
 
+    <string name="doHabitButtonText">Do habit</string>
+
+    <string name="doHabitToastUsefulNotEnough">It\'s worth performing %d more times</string>
+    <string name="doHabitToastUsefulEnough">You are breathtaking!</string>
+    <string name="doHabitToastBadNotEnough">Can do it %d times</string>
+    <string name="doHabitToastBadEnough">Stop to do this!</string>
+
     <string-array name="timeIntervalTypes">
         <item>hour</item>
         <item>day</item>

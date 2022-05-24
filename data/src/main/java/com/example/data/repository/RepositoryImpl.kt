@@ -4,6 +4,7 @@ import android.content.Context
 import com.example.data.databaseObjects.AppDatabase
 import com.example.data.service.HabitsService
 import com.example.domain.objects.Habit
+import com.example.domain.objects.HabitDone
 import com.example.domain.objects.HabitUID
 import com.example.domain.repository.Repository
 import kotlinx.coroutines.flow.Flow
@@ -63,7 +64,11 @@ class  RepositoryImpl(context: Context, val service : HabitsService) : Repositor
         return habitDao.getHabitById(habitUid.uid)
     }
 
-    override suspend fun doHabit(habit: Habit): Flow<Habit> {
-        TODO("Not yet implemented")
+    override suspend fun doHabit(habitDone : HabitDone): Flow<Habit> {
+        service.habitDone(habitDone)
+        val networkHabits = service.getHabits()
+        habitDao.deleteAllHabits()
+        habitDao.insertHabits(networkHabits)
+        return habitDao.getHabitById(habitDone.uid)
     }
 }

@@ -5,9 +5,12 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
+import com.example.domain.typeConverters.DoneDatesTypeConverter
 import com.example.domain.typeConverters.HabitTypeConverter
 import com.example.domain.typeConverters.TimeIntervalTypeConverter
+import kotlinx.android.parcel.IgnoredOnParcel
 import kotlinx.android.parcel.Parcelize
+import java.util.*
 
 @Parcelize
 @Entity(tableName = "habits")
@@ -28,18 +31,34 @@ class Habit(
     @ColumnInfo(name = "id")
     var uniqueId : String = ""
 
+    @ColumnInfo var count = 0
+
+    @field:TypeConverters(DoneDatesTypeConverter::class)
+    @ColumnInfo(name = "done_dates")
+    var doneDates = arrayOf<Long>()
+
+
     //val colorString = colorString
 
 
     fun edit(newTitle : String, newDescription : String, newPriority: Int,
              newType : HabitType, newEventsCount : Int, newTimeIntervalType : TimeIntervalType) {
-
         title = newTitle
         description = newDescription
         priority = newPriority
         type = newType
         eventsCount = newEventsCount
         timeIntervalType = newTimeIntervalType
+    }
+
+    fun doHabit() {
+        count ++
+        val newTime : Long = Date().time
+        doneDates.plus(newTime)
+    }
+
+    fun getCurrentDate() : Long {
+        return Date().time
     }
 
 

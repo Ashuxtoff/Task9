@@ -4,13 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.data.repository.RepositoryImpl
 import com.example.domain.objects.Habit
+import com.example.domain.objects.HabitType
 import com.example.domain.repository.Repository
+import com.example.domain.useCases.DoHabitUseCase
 import com.example.domain.useCases.GetAllHabitsUseCase
 import com.example.task9new.App
 import com.example.task9new.R
@@ -40,6 +43,9 @@ class HabitsListFragment : Fragment(), OnItemClickListener {
     @Inject
     lateinit var getAllHabitsUseCase: GetAllHabitsUseCase
 
+    @Inject
+    lateinit var doHabitUseCase: DoHabitUseCase
+
     val pageId = Random.nextLong()
 
     companion object {
@@ -51,7 +57,7 @@ class HabitsListFragment : Fragment(), OnItemClickListener {
         (requireActivity().application as App).appComponent.injectHabitsListFragment(this)
         viewModel = ViewModelProvider(this, object : ViewModelProvider.Factory {
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return HabitsListViewModel(repository, getAllHabitsUseCase) as T
+                return HabitsListViewModel(repository, getAllHabitsUseCase, doHabitUseCase) as T
             }
         })[HabitsListViewModel::class.java]
         viewModel.setCurrentHabitsList(arguments?.getBoolean(HABITS_LIST_ARGS) ?: true)
@@ -76,6 +82,24 @@ class HabitsListFragment : Fragment(), OnItemClickListener {
             habitsRecyclerView.adapter?.notifyDataSetChanged()
         }
 
+        viewModel.habitDone.observe(this.activity as LifecycleOwner) {
+            Toast.makeText(
+                view.context,
+                getString(
+                    if (it.type == HabitType.USEFUL && it.count < it.eventsCount)
+                        R.string.doHabitToastBadNotEnough
+                    else if (it.type == HabitType.USEFUL && it.count >= it.eventsCount)
+                        R.string.doHabitToastUsefulEnough
+                    else if (it.type == HabitType.BAD && it.count < it.eventsCount)
+                        R.string.doHabitToastBadNotEnough
+                    else
+                        R.string.doHabitToastBadEnough
+                , it.eventsCount - it.count
+                ),
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+
         habitsRecyclerView.adapter = HabitsListAdapter(habits, this)
 
         addHabit.setOnClickListener {
@@ -92,6 +116,10 @@ class HabitsListFragment : Fragment(), OnItemClickListener {
             ?.beginTransaction()
             ?.replace(R.id.fragmentPlaceholder, FormFragment.newInstance(habit))
             ?.commit()
+    }
+
+    override fun onItemButtonClicked(habit: Habit) {
+        viewModel.doHabit(habit)
     }
 
 

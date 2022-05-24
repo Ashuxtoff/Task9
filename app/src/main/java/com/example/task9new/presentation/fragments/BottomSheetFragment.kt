@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.data.repository.RepositoryImpl
 import com.example.domain.repository.Repository
+import com.example.domain.useCases.DoHabitUseCase
 import com.example.domain.useCases.GetAllHabitsUseCase
 import com.example.task9new.App
 import com.example.task9new.R
@@ -33,6 +34,8 @@ class BottomSheetFragment : BottomSheetDialogFragment(), TextWatcher {
     @Inject
     lateinit var getAllHabitsUseCase: GetAllHabitsUseCase
 
+    @Inject
+    lateinit var doHabitUseCase: DoHabitUseCase
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,7 +43,7 @@ class BottomSheetFragment : BottomSheetDialogFragment(), TextWatcher {
         (requireActivity().application as App).appComponent.injectBottomSheetFragment(this)
         viewModel = ViewModelProvider(this.parentFragment as HabitsListFragment, object : ViewModelProvider.Factory {
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return HabitsListViewModel(repository, getAllHabitsUseCase) as T
+                return HabitsListViewModel(repository, getAllHabitsUseCase, doHabitUseCase) as T
             }
         }).get(HabitsListViewModel::class.java)
     }

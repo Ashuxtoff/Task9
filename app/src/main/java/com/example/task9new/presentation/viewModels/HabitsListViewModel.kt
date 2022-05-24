@@ -1,12 +1,10 @@
 package com.example.task9new.presentation.viewModels
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.domain.objects.Habit
 import com.example.domain.objects.HabitType
 import com.example.domain.repository.Repository
+import com.example.domain.useCases.DoHabitUseCase
 import com.example.domain.useCases.GetAllHabitsUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
@@ -16,7 +14,8 @@ import javax.inject.Inject
 
 class HabitsListViewModel(
     private val repository : Repository,
-    private val getAllHabitsUseCase: GetAllHabitsUseCase
+    private val getAllHabitsUseCase: GetAllHabitsUseCase,
+    private val doHabitUseCase: DoHabitUseCase
 ) : ViewModel() {
 
     companion object {
@@ -26,11 +25,14 @@ class HabitsListViewModel(
     private val mutableIsUsefulCurrent: MutableLiveData<Boolean> = MutableLiveData()
     private val mutableSortingMode: MutableLiveData<String> = MutableLiveData(EMPTY_STRING)
     private val mutableSearchQuery: MutableLiveData<String> = MutableLiveData(EMPTY_STRING)
+    private val mutableHabitDone: MutableLiveData<Habit> = MutableLiveData()
 
     private val mutableCurrentHabitsList : MutableLiveData<List<Habit>> = MutableLiveData<List<Habit>>()
 
     val sortingMode : LiveData<String> = mutableSortingMode
     val searchQuery : LiveData<String> = mutableSearchQuery
+
+    var habitDone: LiveData<Habit> = mutableHabitDone
 
     //private val mediatorLiveData = MediatorLiveData<List<Habit>>()
 
@@ -52,6 +54,12 @@ class HabitsListViewModel(
     fun setSearchQuery(query : String?) {
         mutableSearchQuery.value = query ?: EMPTY_STRING
         loadCurrentListHabits()
+    }
+
+    fun doHabit(habit : Habit) {
+        viewModelScope.launch (Dispatchers.IO) {
+            habitDone = doHabitUseCase.execute(habit).asLiveData()
+        }
     }
 
 //    private fun transform(sortingMode : String) : LiveData<List<Habit>> {

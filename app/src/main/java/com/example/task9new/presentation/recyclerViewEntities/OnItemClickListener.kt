@@ -5,4 +5,8 @@ import com.example.domain.objects.Habit
 interface OnItemClickListener {
     fun onItemClicked(habit : Habit) {
     }
+
+    fun onItemButtonClicked(habit : Habit) {
+
+    }
 }

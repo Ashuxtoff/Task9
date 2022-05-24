@@ -1,6 +1,7 @@
 package com.example.task9new.presentation.recyclerViewEntities
 
 import android.view.View
+import android.widget.Button
 import androidx.recyclerview.widget.RecyclerView
 import com.example.domain.objects.Habit
 import com.example.task9new.R
@@ -24,9 +25,12 @@ class HabitsListViewHolder(override val containerView : View) : RecyclerView.Vie
         // можно брать контекст из вью
 
 
-
         containerView.setOnClickListener {
             clickListener.onItemClicked(habit)
+        }
+
+        containerView.findViewById<Button>(R.id.doHabitButton).setOnClickListener{
+            clickListener.onItemButtonClicked(habit)
         }
     }
 

@@ -1,10 +1,12 @@
 package com.example.data.service
 
 import com.example.domain.objects.Habit
+import com.example.domain.objects.HabitDone
 import com.example.domain.objects.HabitUID
 import kotlinx.coroutines.flow.Flow
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.PUT
 
 interface HabitsService {
@@ -14,5 +16,8 @@ interface HabitsService {
 
     @PUT("habit")
     suspend fun putHabit(@Body habit: Habit): HabitUID
+
+    @POST("habit_done")
+    suspend fun habitDone(@Body habitDone : HabitDone)
 
 }

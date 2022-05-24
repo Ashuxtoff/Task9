@@ -30,6 +30,10 @@ class HabitJsonDeserializer : JsonDeserializer<Habit> {
 
         habit.uniqueId = json.asJsonObject.get("uid").asString
 
+        habit.count = json.asJsonObject.get("count").asInt
+
+        json.asJsonObject.get("done_dates").asJsonArray.forEach {habit.doneDates.plus(it.asLong)}
+
         return habit
     }
 }
