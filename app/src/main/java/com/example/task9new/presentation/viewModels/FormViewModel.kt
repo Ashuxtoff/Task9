@@ -1,5 +1,7 @@
 package com.example.task9new.presentation.viewModels
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.data.repository.RepositoryImpl
@@ -12,6 +14,7 @@ import com.example.domain.useCases.PutHabitUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class FormViewModel(
@@ -35,12 +38,22 @@ class FormViewModel(
 //        }
 //    }
 
-    private var habit : Habit? = null
+    private val mutableHabitLD : MutableLiveData<Habit> = MutableLiveData<Habit>()
+
+    val habitLD : LiveData<Habit> = mutableHabitLD
+
+    //private var habit : Habit? = null
+
+
 
     init {
         if (uuid != EMPTY_STRING) {
-            viewModelScope.launch {
-                habit = getHabitByIdUseCase.execute(uuid)?.first()
+            viewModelScope.launch (Dispatchers.Main) {
+                val habit = withContext(Dispatchers.IO) {
+                    getHabitByIdUseCase.execute(uuid)
+                }
+
+                mutableHabitLD.value = habit.first()
             }
         }
     }
@@ -55,11 +68,12 @@ class FormViewModel(
     ) = viewModelScope.launch (Dispatchers.IO) {
 
         if (uuid != EMPTY_STRING) {
+            val habit = habitLD.value
             habit?.edit(
                 title, description, priority, type, eventsCount, timeIntervalType
             )
             if (habit != null) {
-                putHabitByIdUseCase.execute(habit!!)
+                putHabitByIdUseCase.execute(habit)
             }
         }
         else {

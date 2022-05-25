@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.data.repository.RepositoryImpl
@@ -25,7 +26,7 @@ import com.example.task9new.presentation.viewModels.FormViewModel
 import kotlinx.android.synthetic.main.fragment_form.*
 import javax.inject.Inject
 
-class FormFragment : Fragment(), TextWatcher {
+class FormFragment: Fragment(), TextWatcher {
 
     private val priorities get() = resources.getStringArray(R.array.priorities)
     private val typesOfTimeInterval get() = TimeIntervalType.values().map { getString(it.resId) }
@@ -33,6 +34,8 @@ class FormFragment : Fragment(), TextWatcher {
     private var currentTimeIntervalType = TimeIntervalType.DAYS
 
     private lateinit var viewModel : FormViewModel
+
+    private var habit : Habit? = null
 
     @Inject
     lateinit var repository : Repository
@@ -50,14 +53,12 @@ class FormFragment : Fragment(), TextWatcher {
         private const val EMPTY_STRING = ""
 
 
-        fun newInstance(habit : Habit?) : FormFragment{
+        fun newInstance(uuid : String?) : FormFragment{
             val fragment = FormFragment()
 
-            if (habit != null) { // убрать этот блок
+            if (uuid != null) { // убрать этот блок
                 val bundle = Bundle().apply {
-                    putParcelable(HABIT_ARG, habit)
-                    putString(ID_ARG, habit.uniqueId)
-
+                    putString(ID_ARG, uuid)
                 }
                 fragment.arguments = bundle
             }
@@ -86,6 +87,10 @@ class FormFragment : Fragment(), TextWatcher {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewModel.habitLD.observe(this.activity as LifecycleOwner) {
+            setFields(it)
+        }
 
         val activity = activity as MainActivity
 
@@ -127,30 +132,26 @@ class FormFragment : Fragment(), TextWatcher {
         countOfEventsInput.hint = getString(R.string.hintEventsCountUseful)
         currentType = HabitType.USEFUL
 
-        arguments?.let { bundle ->
-            val habit = bundle.getParcelable(HABIT_ARG) as Habit?
 
-            titleInput.setText(habit?.title)
-            descriptionInput.setText(habit?.description)
-            priorityInput.setText(habit?.priority.toString() as CharSequence)
-
-            when (habit?.type) {
-                HabitType.USEFUL -> {
-                    usefulTypeRadiobutton.isChecked = true
-                    currentType = HabitType.USEFUL
-                }
-                HabitType.BAD -> {
-                    badTypeRadiobutton.isChecked = true
-                    currentType = HabitType.BAD
-                }
-            }
-
-            countOfEventsInput.setText(habit?.eventsCount.toString() as CharSequence)
-            currentTimeIntervalType = habit?.timeIntervalType ?: TimeIntervalType.DAYS
-            timeIntervalInput.setText(getText(currentTimeIntervalType.resId))
-
-            button.text = getString(R.string.editButtonText)
-        }
+//        if (habit != null) {
+//            titleInput.setText(habit?.title)
+//            descriptionInput.setText(habit?.description)
+//            priorityInput.setText(habit?.priority.toString() as CharSequence)
+//            when (habit?.type) {
+//                HabitType.USEFUL -> {
+//                    usefulTypeRadiobutton.isChecked = true
+//                    currentType = HabitType.USEFUL
+//                }
+//                HabitType.BAD -> {
+//                    badTypeRadiobutton.isChecked = true
+//                    currentType = HabitType.BAD
+//                }
+//            }
+//            countOfEventsInput.setText(habit?.eventsCount.toString() as CharSequence)
+//            currentTimeIntervalType = habit?.timeIntervalType ?: TimeIntervalType.DAYS
+//            timeIntervalInput.setText(getText(currentTimeIntervalType.resId))
+//            button.text = getString(R.string.editButtonText)
+//        }
 
         button.setOnClickListener {
 
@@ -179,6 +180,26 @@ class FormFragment : Fragment(), TextWatcher {
                 .replace(R.id.fragmentPlaceholder, BaseHabitsListFragment.newInstance())
                 .commit()
         }
+    }
+
+    fun setFields(habit : Habit) {
+        titleInput.setText(habit?.title)
+        descriptionInput.setText(habit?.description)
+        priorityInput.setText(habit?.priority.toString() as CharSequence)
+        when (habit?.type) {
+            HabitType.USEFUL -> {
+                usefulTypeRadiobutton.isChecked = true
+                currentType = HabitType.USEFUL
+            }
+            HabitType.BAD -> {
+                badTypeRadiobutton.isChecked = true
+                currentType = HabitType.BAD
+            }
+        }
+        countOfEventsInput.setText(habit?.eventsCount.toString() as CharSequence)
+        currentTimeIntervalType = habit?.timeIntervalType ?: TimeIntervalType.DAYS
+        timeIntervalInput.setText(getText(currentTimeIntervalType.resId))
+        button.text = getString(R.string.editButtonText)
     }
 
 

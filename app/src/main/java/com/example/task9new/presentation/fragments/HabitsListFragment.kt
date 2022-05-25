@@ -113,7 +113,7 @@ class HabitsListFragment : Fragment(), OnItemClickListener {
     override fun onItemClicked(habit: Habit) {
         activity?.supportFragmentManager
             ?.beginTransaction()
-            ?.replace(R.id.fragmentPlaceholder, FormFragment.newInstance(habit))
+            ?.replace(R.id.fragmentPlaceholder, FormFragment.newInstance(habit.uniqueId))
             ?.commit()
     }
 

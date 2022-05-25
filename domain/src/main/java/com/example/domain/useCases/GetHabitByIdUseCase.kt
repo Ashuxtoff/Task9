@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 class GetHabitByIdUseCase(private val repository: Repository) {
 
-    suspend fun execute(uuid : String) : Flow<Habit>? {
+    suspend fun execute(uuid : String) : Flow<Habit> {
         return repository.getHabitById(uuid)
     }
 }
