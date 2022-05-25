@@ -10,7 +10,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import javax.inject.Inject
 
 class HabitsListViewModel(
     private val repository : Repository,
@@ -32,7 +31,7 @@ class HabitsListViewModel(
     val sortingMode : LiveData<String> = mutableSortingMode
     val searchQuery : LiveData<String> = mutableSearchQuery
 
-    var habitDone: LiveData<Habit> = mutableHabitDone
+    val habitDoneLiveData: LiveData<Habit> = mutableHabitDone
 
     //private val mediatorLiveData = MediatorLiveData<List<Habit>>()
 
@@ -57,8 +56,12 @@ class HabitsListViewModel(
     }
 
     fun doHabit(habit : Habit) {
-        viewModelScope.launch (Dispatchers.IO) {
-            habitDone = doHabitUseCase.execute(habit).asLiveData()
+        viewModelScope.launch (Dispatchers.Main ) {
+            val habitDone =  withContext(Dispatchers.IO) {
+                doHabitUseCase.execute(habit)
+            }
+
+            mutableHabitDone.value = habitDone.first()
         }
     }
 

@@ -1,12 +1,14 @@
 package com.example.data.di
 
 import android.content.Context
+import com.example.data.jsonSerializers.HabitDoneSerializer
 import com.example.data.jsonSerializers.HabitJsonDeserializer
 import com.example.data.jsonSerializers.HabitJsonSerializer
 import com.example.data.jsonSerializers.HabitUIDJsonDeserializer
 import com.example.data.repository.RepositoryImpl
 import com.example.data.service.HabitsService
 import com.example.domain.objects.Habit
+import com.example.domain.objects.HabitDone
 import com.example.domain.objects.HabitUID
 import com.example.domain.repository.Repository
 import com.google.gson.Gson
@@ -66,6 +68,7 @@ class DataModule { // добавить в один компонент с DomainM
             .registerTypeAdapter(Habit::class.java, HabitJsonSerializer())
             .registerTypeAdapter(Habit::class.java, HabitJsonDeserializer())
             .registerTypeAdapter(HabitUID::class.java, HabitUIDJsonDeserializer())
+            .registerTypeAdapter(HabitDone::class.java, HabitDoneSerializer())
             .create()
     }
 

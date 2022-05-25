@@ -54,7 +54,13 @@ class Habit(
     fun doHabit() {
         count ++
         val newTime : Long = Date().time
-        doneDates.plus(newTime)
+
+        val list = doneDates.toMutableList()
+        list.add(newTime) // tсли сделать doneDates мьютабл списком, то почему-то не получалось добавить элемент :(
+
+        doneDates = list.toTypedArray()
+//        doneDates.plus(newTime)
+
     }
 
     fun getCurrentDate() : Long {

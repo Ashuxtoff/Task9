@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.data.repository.RepositoryImpl
 import com.example.domain.objects.Habit
 import com.example.domain.objects.HabitType
 import com.example.domain.repository.Repository
@@ -82,7 +81,7 @@ class HabitsListFragment : Fragment(), OnItemClickListener {
             habitsRecyclerView.adapter?.notifyDataSetChanged()
         }
 
-        viewModel.habitDone.observe(this.activity as LifecycleOwner) {
+        viewModel.habitDoneLiveData.observe(this.activity as LifecycleOwner) {
             Toast.makeText(
                 view.context,
                 getString(

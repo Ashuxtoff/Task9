@@ -10,6 +10,7 @@ class DoHabitUseCase(private val repository: Repository) {
     suspend fun execute(habit : Habit) : Flow<Habit> {
         habit.doHabit()
         val habitDone = HabitDone(habit.doneDates.last(), habit.uniqueId)
+        repository.putHabit(habit)
         return repository.doHabit(habitDone)
     }
 }
