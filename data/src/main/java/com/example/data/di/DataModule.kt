@@ -1,6 +1,8 @@
 package com.example.data.di
 
 import android.content.Context
+import com.example.data.databaseObjects.AppDatabase
+import com.example.data.databaseObjects.HabitDao
 import com.example.data.jsonSerializers.HabitDoneSerializer
 import com.example.data.jsonSerializers.HabitJsonDeserializer
 import com.example.data.jsonSerializers.HabitJsonSerializer
@@ -90,8 +92,15 @@ class DataModule { // добавить в один компонент с DomainM
 
     @Provides
     @Singleton
-    fun provideRepository(context : Context, habitsService: HabitsService) : Repository { // убрать зависимоть модуля от дата-слоя?
-        return RepositoryImpl(context, habitsService)
+    fun provideHabitDao(context: Context) : HabitDao {
+        val db = AppDatabase.getInstance(context)
+        return db.habitDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideRepository(habitsService: HabitsService, habitDao: HabitDao) : Repository { // убрать зависимоть модуля от дата-слоя?
+        return RepositoryImpl(habitsService, habitDao)
     }
 
 }

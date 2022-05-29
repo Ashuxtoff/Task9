@@ -2,6 +2,7 @@ package com.example.data.repository
 
 import android.content.Context
 import com.example.data.databaseObjects.AppDatabase
+import com.example.data.databaseObjects.HabitDao
 import com.example.data.service.HabitsService
 import com.example.domain.objects.Habit
 import com.example.domain.objects.HabitDone
@@ -12,7 +13,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-class  RepositoryImpl(context: Context, val service : HabitsService) : Repository {
+class  RepositoryImpl(val service : HabitsService, val habitDao: HabitDao) : Repository {
 
     companion object {
         private const val EMPTY_STRING = ""
@@ -20,8 +21,8 @@ class  RepositoryImpl(context: Context, val service : HabitsService) : Repositor
         private const val DESCENDING_SORTING_MODE = "descending"
     }
 
-    private val db = AppDatabase.getInstance(context)
-    private val habitDao = db.habitDao()
+//    private val db = AppDatabase.getInstance(context)
+//    private val habitDao = db.habitDao()
 
 
     override suspend fun getCurrentHabits(typeResId : Int, sortingMode : String, searchQuery : String) : Flow<List<Habit>> { // возвращать result от habit

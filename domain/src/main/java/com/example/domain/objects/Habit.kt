@@ -14,7 +14,7 @@ import java.util.*
 
 @Parcelize
 @Entity(tableName = "habits")
-class Habit(
+data class Habit(
     @ColumnInfo var title: String,
     @ColumnInfo var description: String,
     @ColumnInfo var priority: Int,
@@ -56,7 +56,7 @@ class Habit(
         val newTime : Long = Date().time
 
         val list = doneDates.toMutableList()
-        list.add(newTime) // tсли сделать doneDates мьютабл списком, то почему-то не получалось добавить элемент :(
+        list.add(newTime) // если сделать doneDates мьютабл списком, то почему-то не получалось добавить элемент :(
 
         doneDates = list.toTypedArray()
 //        doneDates.plus(newTime)
