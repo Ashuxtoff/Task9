@@ -45,8 +45,7 @@ class FormViewModel(
     //private var habit : Habit? = null
 
 
-
-    init {
+    init { // чтобы провадить модель через даггер, можно в отдельном методе дергать полтягивание привычки по юиду, а не предвать его в конструктор
         if (uuid != EMPTY_STRING) {
             viewModelScope.launch (Dispatchers.Main) {
                 val habit = withContext(Dispatchers.IO) {

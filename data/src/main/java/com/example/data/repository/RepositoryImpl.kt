@@ -24,8 +24,6 @@ class  RepositoryImpl(context: Context, val service : HabitsService) : Repositor
     private val habitDao = db.habitDao()
 
 
-
-
     override suspend fun getCurrentHabits(typeResId : Int, sortingMode : String, searchQuery : String) : Flow<List<Habit>> { // возвращать result от habit
         val networkHabits = service.getHabits() // это все в try
         habitDao.deleteAllHabits()
