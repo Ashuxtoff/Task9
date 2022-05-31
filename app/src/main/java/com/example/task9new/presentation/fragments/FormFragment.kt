@@ -73,7 +73,6 @@ class FormFragment: Fragment(), TextWatcher {
         viewModel = ViewModelProvider(this, object : ViewModelProvider.Factory { // посмотреть, сработает ли с другой втьюмоделью, и тогда тут  тоже переделать
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
                 return FormViewModel(
-                    repository,
                     arguments?.getString(ID_ARG) ?: EMPTY_STRING,
                     getHabitByIdUseCase,
                     putHabitUseCase) as T
@@ -131,27 +130,6 @@ class FormFragment: Fragment(), TextWatcher {
         usefulTypeRadiobutton.isChecked = true
         countOfEventsInput.hint = getString(R.string.hintEventsCountUseful)
         currentType = HabitType.USEFUL
-
-
-//        if (habit != null) {
-//            titleInput.setText(habit?.title)
-//            descriptionInput.setText(habit?.description)
-//            priorityInput.setText(habit?.priority.toString() as CharSequence)
-//            when (habit?.type) {
-//                HabitType.USEFUL -> {
-//                    usefulTypeRadiobutton.isChecked = true
-//                    currentType = HabitType.USEFUL
-//                }
-//                HabitType.BAD -> {
-//                    badTypeRadiobutton.isChecked = true
-//                    currentType = HabitType.BAD
-//                }
-//            }
-//            countOfEventsInput.setText(habit?.eventsCount.toString() as CharSequence)
-//            currentTimeIntervalType = habit?.timeIntervalType ?: TimeIntervalType.DAYS
-//            timeIntervalInput.setText(getText(currentTimeIntervalType.resId))
-//            button.text = getString(R.string.editButtonText)
-//        }
 
         button.setOnClickListener {
 

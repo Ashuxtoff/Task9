@@ -33,7 +33,7 @@ class PresentationModule {
                               getHabitByIdUseCase: GetHabitByIdUseCase,
                               putHabitUseCase: PutHabitUseCase) : FormViewModel {
         // переделать юид на объект нэбит юид?
-        return FormViewModel(repository, uuid, getHabitByIdUseCase, putHabitUseCase)
+        return FormViewModel(uuid, getHabitByIdUseCase, putHabitUseCase)
     }
 
     @Provides

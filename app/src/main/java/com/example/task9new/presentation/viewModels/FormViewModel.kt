@@ -18,7 +18,6 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class FormViewModel(
-    private val repository: Repository,
     private val uuid : String,
     private val getHabitByIdUseCase: GetHabitByIdUseCase,
     private val putHabitByIdUseCase: PutHabitUseCase
@@ -27,16 +26,6 @@ class FormViewModel(
     companion object {
         private const val EMPTY_STRING = ""
     }
-
-//    private var habitLiveData : LiveData<Habit>? = null
-//
-//    init {
-//        if (uuid != EMPTY_STRING) {
-//            viewModelScope.launch (Dispatchers.IO) {
-//                habitLiveData = repository.getHabitById(uuid)
-//            }
-//        }
-//    }
 
     private val mutableHabitLD : MutableLiveData<Habit> = MutableLiveData<Habit>()
 
